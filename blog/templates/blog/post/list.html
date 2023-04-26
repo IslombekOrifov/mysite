@@ -1,0 +1,138 @@
+{% extends 'blog/base.html' %}     
+{% load static %}
+
+
+{% block title %}{% endblock %}
+
+{% block content %}
+    <!-- title page -->
+    <section class="flat-title-page inner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-title-heading center">
+                        <h2 class="heading text-color-2">Blog</h2>
+                        <div class="title-inner link-style-2">
+                            <h5 class=""><a class="home fw-4" href="index.html">Homepage</a><span>Blog</span></h5>
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+        </div>                    
+    </section>
+
+    <section class="flat-blog-standard">
+        <div class="themes-container d-flex flex-wrap">
+            <div class="row col-md-3 col-sm-12">
+                <div class="col-md-12">
+                    <aside class="side-bar">
+                        <div class="inner-side-bar">                                       
+                            <div class="widget search">                                 
+                                <form action="#" method="get" role="search" class="search-form">
+                                    <input type="search" class="search-field"
+                                        placeholder="Search" value="" name="s"
+                                        title="Search for" required="">
+                                    <button class="search-icon search-submit" type="submit" title="Search"></button>
+                                </form>
+                            </div>
+                            <div class="widget widget-categories style"> 
+                                <h4 class="widget-title title-list">
+                                    Categories
+                                </h4>                                                                                                                        
+                                <ul>
+                                    <li>
+                                        <a href="blog.html">Graphic Design</a>
+                                        <span class="number">6</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Web Design</a>
+                                        <span class="number">6</span>
+                                    </li>
+                                    <li class="active">
+                                        <a href="blog.html">Web Development</a>
+                                        <span class="number">9</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Template</a>
+                                        <span class="number">4</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Media</a>
+                                        <span class="number">3</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Uncategorized </a>
+                                        <span class="number">1</span>
+                                    </li>                                  
+                                </ul>
+                            </div>
+                                            
+                            <div class="widget widget-tags">
+                                <h4 class="widget-title title-tags">
+                                    Popular Tags
+                                </h4>     
+                                <div class="tags_cloud_inner">
+                                    <a href="blog.html">Graphic</a>
+                                    <a href="blog.html">Web</a>
+                                    <a href="blog.html">Development</a>
+                                    <a href="blog.html" class="active">Template</a>
+                                    <a href="blog.html">Media</a>
+                                    <a href="blog.html">Lorem</a>
+                                    <a href="blog.html">Magna</a>
+                                    <a href="blog.html">Commodo</a>
+                                    <a href="blog.html">Elit</a>
+                                    <a href="blog.html" class="style-tag">Nostrud</a>                                          
+                                </div>                                                                                                       
+                            </div>                               
+                        </div>
+                    </aside>
+                </div>
+            </div> 
+            <div class="row col-md-9 col-sm-12">
+                {% for post in posts %}
+                    <div class="col-lg-4 col-md-4 col-sm-12">
+                        <div class="blog-box tf-img hover-img hv-one">
+                            <div class="media img-style ">
+                                <img class="img-item" src="{{ post.image.url }}" alt="">
+                                <span class="hover-one"></span>
+                            </div>  
+                            <div class="content">
+                                <h6 class="text-u">{{ post.category.name }}</h6>                                                                
+                                <h3 class="text-t"><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h3>
+                                <div class="meta texts-p"> by <a href="#" class="user">{{ post.author.username }} </a>  <a href="#" class="">{{ post.publish }}</a> </div>  
+                            </div>                                                                 
+                        </div>                        
+                    </div>
+                {% endfor %}
+                            
+                <div class="col-lg-12">
+                    <div class="themesflat-pagination clearfix center">
+                        <ul>
+                            <li><a href="#" class="page-numbers">1</a></li>
+                            <li><a href="#" class="page-numbers current">2</a></li>
+                            <li><a href="#" class="page-numbers style"><i class="far fa-angle-right"></i></a></li>
+                        </ul>
+                    </div> 
+                </div>
+            </div>
+            
+        </div>
+    </section>
+{% endblock content %}
+          
+
+
+
+
+{% block scripts %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+
+    <script src="{% static 'js/plugin.js' %}"></script>
+    <script src="{% static 'js/shortcodes.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock scripts %}
+
+  

@@ -1,0 +1,261 @@
+{% extends 'blog/base.html' %}
+
+{% load static %}
+
+{% block title %}Post: {{ post.title }}{% endblock %}
+
+{% block content %}
+    <section class="flat-blog-sidebar flat-blog-details">
+        <div class="themes-container">
+            <div class="row">
+                <div class="col-lg-9 col-md-12">
+                    <article class="article">
+                        <div class="post">
+                            <div class="heading-post center">
+                                <h6 class="text-u text-color-3 ls-01">{{ post.category.name }}</h6>                                                                
+                                <h2 class="text-t">{{ post.title }}</h2>
+                                <div class="box-meta flex-three">
+                                    <img src="assets/images/blog/avatar-blog.jpg" alt=""> 
+                                    <div class="meta texts-p"> by <a href="#" class="user">{{ post.author.username }} </a>  <a href="#" class="">{{ post.publish }}</a> </div> 
+                                </div>
+                            </div> 
+                            <div class="image-one">
+                                <img src="assets/images/blog/blog-deatils-sidebar-1.jpg" alt=""> 
+                            </div>   
+                            <div class="box-text style-1">
+                                <p class="text-one p-18">{{ post.body }}</p>   
+                            </div>
+                            <div class="box-item flex-two">
+                                <div class="tags flex-three ">
+                                    <h5 class="title-tag fs-16 fw-7">Tags:</h5>
+                                    <div class="flex fs-16 fw-6 link-style-2">
+                                        <a href="#">Desgin</a>
+                                        <a href="#"> Development</a>
+                                        <a href="#"> Template</a>
+                                    </div>                                         
+                                </div> 
+                                <div class="share flex-three ">
+                                    <h5 class="title-share fs-16 fw-7">Share:</h5>                                         
+                                    <div class="icon-share">
+                                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                                        <a href="#"><i class="fab fa-twitter"></i></a>
+                                        <a href="#"><i class="fab fa-instagram"></i></a>
+                                        <a href="#"><i class="fab fa-youtube"></i></a>                                         
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="button-pagination flex-one">
+                                <div class="inner inner-1">
+                                    <div class="btn-pagi text-u link-style-2"><a href="#" >Previous</a></div>
+                                    <h4 class="fs-16 text-t"><a href="#">We executed the best civil engineering projects in canada</a> </h4>
+                                </div>
+                                <div class="inner inner-2">
+                                    <div class="btn-pagi text-u link-style-2"><a href="#" >Next</a></div>
+                                    <h4 class="fs-16 text-t"><a href="#"> We executed the best civil engineering projects in canada</a></h4>
+                                </div>                                      
+                            </div>  
+                            <div id="comments" class="comments">
+                                <h3 class="title-comment title-bl">02 Comments</h3>
+
+                                <ol class="comment-list">
+                                    <li class="comment-01 flex">
+                                        <div class="comment-avatar">
+                                            <img src="assets/images/blog/avatar-1.jpg" alt="images">
+                                        </div>
+                                        <div class="comment-content">
+                                            <div class="comment-meta">                                                  
+                                                <div class="comment-author mb-18">
+                                                    <h4> Wilfrid Hancock </h4>
+                                                    <h5 class="font fw-4">August 13, 2022</h5> 
+                                                </div>                                                                                                                                                 
+                                            </div>
+                                            <div class="comment-text">
+                                                <p>Metus vestibulum condimentum condimentum interdum suspendisse nostra id viverra aliquam curae dictum habitant cum venenatis
+                                                        a sem parturient eu ipsum suspendisse morbi suspendisse imperdiet curae commodo class.</p>
+                                            </div> 
+                                            <a href="#" class="reply">Reply</a>                                
+                                        </div>
+                                    </li>                                      
+                                    
+                                    <li class="comment-01 style flex">
+                                        <div class="comment-avatar">
+                                            <img src="assets/images/blog/avatar-2.jpg" alt="images">
+                                        </div>
+                                        <div class="comment-content ">
+                                            <div class="comment-meta">                                                  
+                                                <div class="comment-author mb-18">
+                                                    <h4>  Wade Gill </h4>
+                                                    <h5 class="font fw-4">August 13, 2022</h5> 
+                                                </div>                                                                                                                                                 
+                                            </div>
+                                            <div class="comment-text">
+                                                <p>Vestibulum condimentum condimentum interdum suspendisse nostra id viverra aliquam curae dictum habitant.</p>
+                                            </div> 
+                                            <a href="#" class="reply">Reply</a>                                     
+                                        </div>
+                                    </li>
+                                    <li class="comment-01 flex">
+                                        <div class="comment-avatar">
+                                            <img src="assets/images/blog/avatar-3.jpg" alt="images">
+                                        </div>
+                                        <div class="comment-content style-3">
+                                            <div class="comment-meta">                                                  
+                                                <div class="comment-author mb-18">
+                                                    <h4> Ernest Wheeler </h4>
+                                                    <h5 class="font fw-4">August 13, 2022</h5> 
+                                                </div>                                                                                                                                                 
+                                            </div>
+                                            <div class="comment-text">
+                                                <p>Metus vestibulum condimentum condimentum interdum suspendisse nostra id viverra aliquam curae dictum habitant cum venenatis 
+                                                    a sem parturient eu ipsum suspendisse morbi suspendisse imperdiet curae commodo class.</p>
+                                            </div> 
+                                            <a href="#" class="reply">Reply</a>                                     
+                                        </div>
+                                    </li>
+                                    
+                                </ol>
+                                <div id="respond" class="respond-comment">
+                                    <h2 class="title-bl">Leave A Comment </h2> 
+                                    <form method="post" id="contactform" class="comment-form form-submit"
+                                        action="./contact/contact-process.php" accept-charset="utf-8"
+                                        novalidate="novalidate">
+                                        <div class="text-wrap clearfix">
+                                            <fieldset class="name-wrap style-text">
+                                                <input type="text" id="name" class="tb-my-input" name="name"
+                                                    tabindex="1" placeholder="Name" value="" size="32"
+                                                    aria-required="true" required="">
+                                            </fieldset>
+                                            <fieldset class="email-wrap style-text">
+                                                <input type="email" id="email" class="tb-my-input" name="email"
+                                                    tabindex="2" placeholder="Email*" value="" size="32"
+                                                    aria-required="true" required="">
+                                            </fieldset>
+                                        </div>
+                                        <fieldset class="message-wrap">
+                                            <textarea id="comment-message" name="message" rows="3" tabindex="5"
+                                                placeholder="Comment*"
+                                                aria-required="true"></textarea>
+                                        </fieldset>
+                                        <button name="submit" type="submit" id="comment-reply"
+                                            class="button btn-submit-comment btn-action"><span>Post Comment</span></button>
+                                    </form>
+                                </div>
+
+                            </div>       
+                        </div>                        
+                    </article>
+                </div>
+                <div class="col-lg-3 col-md-12">
+                    <aside class="side-bar">
+                        <div class="inner-side-bar">                                       
+                            <div class="widget search">                                 
+
+                                <form action="#" method="get" role="search" class="search-form">
+                                    <input type="search" class="search-field"
+                                        placeholder="Search" value="" name="s"
+                                        title="Search for" required="">
+                                    <button class="search-icon search-submit" type="submit" title="Search"></button>
+                                </form>
+                            </div>
+                            <div class="widget widget-categories style"> 
+                                <h4 class="widget-title title-list">
+                                    Categories
+                                </h4>                                                                                                                        
+                                <ul>
+                                    <li>
+                                        <a href="blog.html">Graphic Design</a>
+                                        <span class="number">6</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Web Design</a>
+                                        <span class="number">6</span>
+                                    </li>
+                                    <li class="active">
+                                        <a href="blog.html">Web Development</a>
+                                        <span class="number">9</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Template</a>
+                                        <span class="number">4</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Media</a>
+                                        <span class="number">3</span>
+                                    </li>
+                                    <li>
+                                        <a href="blog.html">Uncategorized </a>
+                                        <span class="number">1</span>
+                                    </li>                                  
+                                </ul>
+                            </div>
+                            <div class="widget widget-posts">
+                                <h4 class="widget-title title-blogs">
+                                    Recent Posts
+                                </h4>   
+                                <ul class="recent-news">
+                                    <li class="hover-img">
+                                        <div class="thumb img-style">
+                                            <img class="img" src="assets/images/blog/blog-sidebar-1.jpg" alt="images">
+                                        </div>
+                                        <div class="title-post">    
+                                            <h6 class="text-u text-color-3 ls-01">TRENDS</h6>                             
+                                            <h5 ><a href="blog-details.html">The mechanical performs welds metal</a></h5>
+                                        </div>
+                                    </li>
+                                    <li class="hover-img">
+                                        <div class="thumb img-style">
+                                            <img class="img" src="assets/images/blog/blog-sidebar-2.jpg" alt="images">
+                                        </div>
+                                        <div class="title-post">    
+                                            <h6 class="text-u text-color-3 ls-01">TRENDS</h6>                             
+                                            <h5 ><a href="blog-details.html">the knit top is the perfect fall top to layer under.</a></h5>
+                                        </div>
+                                    </li>
+                                    <li class="hover-img">
+                                        <div class="thumb img-style">
+                                            <img class="img" src="assets/images/blog/blog-sidebar-3.jpg" alt="images">
+                                        </div>
+                                        <div class="title-post">    
+                                            <h6 class="text-u text-color-3 ls-01">TRENDS</h6>                             
+                                            <h5 ><a href="blog-details.html">Meet facdori the most successful</a></h5>
+                                        </div>
+                                    </li>                                              
+                                </ul>                                                                                             
+                            </div>                       
+                            <div class="widget widget-tags">
+                                <h4 class="widget-title title-tags">
+                                    Popular Tags
+                                </h4>     
+                                <div class="tags_cloud_inner">
+                                    <a href="blog.html">Graphic</a>
+                                    <a href="blog.html">Web</a>
+                                    <a href="blog.html">Development</a>
+                                    <a href="blog.html" class="active">Template</a>
+                                    <a href="blog.html">Media</a>
+                                    <a href="blog.html">Lorem</a>
+                                    <a href="blog.html">Magna</a>
+                                    <a href="blog.html">Commodo</a>
+                                    <a href="blog.html">Elit</a>
+                                    <a href="blog.html" class="style-tag">Nostrud</a>                                          
+                                </div>                                                                                                       
+                            </div>                               
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+         
+    <!-- Javascript -->
+{% block scripts %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery.easing.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'js/jquery-validate.js' %}"></script>
+
+    <script src="{% static 'js/plugin.js' %}"></script>
+    <script src="{% static 'js/shortcodes.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

@@ -1,4 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+import os
+from django.conf import settings
+from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 

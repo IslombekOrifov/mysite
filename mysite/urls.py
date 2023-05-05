@@ -18,9 +18,29 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import TemplateView
+
+
+from fcm_django.api.rest_framework import FCMDeviceAuthorizedViewSet
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('devices', FCMDeviceAuthorizedViewSet)
+
+
 
 urlpatterns = [
+    path("firebase-messaging-sw.js",
+        TemplateView.as_view(
+            template_name="firebase-messaging-sw.js",
+            content_type="application/javascript",
+        ),
+        name="firebase-messaging-sw.js"
+    ),
+
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('', include('main.urls', namespace='main')),
     path('blog/', include('blog.urls', namespace='blog')),
 ]
 

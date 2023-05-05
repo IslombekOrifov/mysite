@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+  <div id="main-content" class="single-page-content">
+    <div id="primary" class="content-area">
+
+      <div class="page-title">
+        <h1>Resume</h1>
+        <div class="page-subtitle">
+            <h4> 8 Years of Experience</h4>
+        </div>
+      </div>
+
+      <div id="content" class="page-content site-content single-post" role="main">
+        <div class="row">
+
+          <div class=" col-xs-12 col-sm-6 ">
+            <div class="block-title">
+              <h2>Education</h2>
+            </div>
+
+            <div id="timeline_1" class="timeline clearfix">
+              {% for educa in education%}
+                <div class="timeline-item clearfix">
+                  <h5 class="item-period ">{{ educa.year }}</h5>
+                  <span class="item-company">{{ educa.edu_name}}</span>
+                  <h4 class="item-title">{{ educa.specialty }}</h4>
+                  <p>{{ educa.about }}<p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class=" col-xs-12 col-sm-6 ">
+            <div class="block-title">
+              <h2>Experience</h2>
+            </div>
+
+            <div id="timeline_2" class="timeline clearfix">
+              {% for exper in experiece %}
+                <div class="timeline-item clearfix">
+                  <h5 class="item-period current">{{ exper.year }}</h5>
+                  <span class="item-company">{{ exper.company }}</span>
+                  <h4 class="item-title">{{ exper.specialty }}</h4>
+                  <p>{{ exper.about }}</p>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        {% if sertificates %}
+          <div class="row">
+            <div class=" col-xs-12 col-sm-12 ">
+              <div class="p-20"></div>
+
+              <div class="block-title">
+                <h2>Certificates</h2>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            {% for sertificate in sertificates %}
+              <div class=" col-xs-12 col-sm-6 ">
+                <a href="{{ sertificate.image.url }}" class="lightbox">
+                  <div class="certificate-item clearfix">
+                    <div class="certi-logo">
+                      <img src="{{ sertificate.logo.url }}" alt="logo">
+                    </div>
+
+                    <div class="certi-content">
+                      <div class="certi-title">
+                        <h4>{{ sertificate.name | wordwrap:40 | linebreaks }}</h4>
+                      </div>
+
+                      <div class="certi-id">
+                        <span>{{ sertificate.company }}</span>
+                      </div>
+                      {% if sertificate.year %}
+                        <div class="certi-date">
+                          <span>{{ sertificate.year }}</span>
+                        </div>
+                      {% endif %}
+                      <div class="certi-company">
+                        <span></span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+
+        <div class="row">
+          <div class=" col-xs-12 col-sm-12 ">
+            <div class="p-40"></div>
+          </div>
+        </div>
+
+        {% if coding_languages %}
+          <div class="block-title">
+            <h2>Programming Languages and </br>Frameworks</h2>
+          </div>
+          
+          <div class="portfolio-grid d-flex flex-wrap justify-content-around five-columns shuffle ">
+            <!-- Portfolio Item  -->
+            {% for coding_language in coding_languages %}
+              <figure class="item lbimage" >
+                <div class="portfolio-item-img">
+                  <img src="{{ coding_language.logo.url }}" alt="{{ coding_language.name }}"/>
+                </div>
+              </figure>
+            {% endfor %}
+            <!-- /Portfolio Item  -->
+          </div>
+        {% endif %}
+        
+        <div class="row">
+          <div class=" col-xs-12 col-sm-12 ">
+            <div class="p-40"></div>
+          </div>
+        </div>
+
+        <div class="row col-12">
+          <div class=" col-xs-12 col-sm-6 ">
+            <div class="block-title">
+              <h2>Coding skills - Backend</h2>
+            </div>
+
+            <div id="skills_1" class="skills-info skills-first-style">
+              <!-- Skill 1 -->
+              <div class="clearfix">
+                <h4>Python</h4>
+                <div class="skill-value">90%</div>
+              </div>
+              <div id="skill_1" data-value="90" class="skill-container">
+                <div class="skill-percentage"></div>
+              </div>
+              <!-- /Skill 1 -->
+              
+              <!-- Skill 8 -->
+              <div class="clearfix">
+                <h4>Django</h4>
+                <div class="skill-value">80%</div>
+              </div>
+              <div id="skill_2" data-value="80" class="skill-container">
+                <div class="skill-percentage"></div>
+              </div>
+              <!-- /Skill 8 -->
+
+              <!-- Skill 8 -->
+              <div class="clearfix">
+                <h4>DRF</h4>
+                <div class="skill-value">70%</div>
+              </div>
+              <div id="skill_3" data-value="70" class="skill-container">
+                <div class="skill-percentage"></div>
+              </div>
+              <!-- /Skill 8 -->
+            </div>
+
+          </div>
+
+
+          <div class=" col-xs-12 col-sm-6 ">
+            <div class="block-title">
+              <h2>Frontend</h2>
+            </div>
+
+
+            <div id="skills_2" class="skills-info skills-first-style">
+              <!-- Skill 5 -->
+              <div class="clearfix">
+                <h4>HTML / CSS</h4>
+                <div class="skill-value">90%</div>
+              </div>
+              <div id="skill_4" data-value="90" class="skill-container">
+                <div class="skill-percentage"></div>
+              </div>
+              <!-- /Skill 5 -->
+
+              <!-- Skill 7 -->
+              <div class="clearfix">
+                <h4>JavaScript</h4>
+                <div class="skill-value">50%</div>
+              </div>
+              <div id="skill_5" data-value="50" class="skill-container">
+                <div class="skill-percentage"></div>
+              </div>
+              <!-- /Skill 7 -->
+            </div>
+          </div>
+        </div>
+
+        <div class="row col-12 d-flex justify-content-center">
+          <div class="home-buttons">
+            <a href="https://github.com/IslombekOrifov/" class="btn btn-primary">GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

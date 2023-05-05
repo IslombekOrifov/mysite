@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+  <div id="main-content" class="single-page-content">
+    <div id="primary" class="content-area">    
+      <div id="content" class="page-content site-content single-post" role="main">
+        <!-- Home Page Top Part -->
+        <div class="row">
+          <div class=" col-xs-12 col-sm-12">
+            <div class="home-content">
+              <div class="row flex-v-align">
+                
+                <div class="col-sm-12 col-md-5 col-lg-5">
+                  <div class="home-photo">
+                    <div class="hp-inner" style="background-image: url(./{% static 'img/main_image2.jpg' %});">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12 col-md-7 col-lg-7">
+                  <div class="home-text hp-left">
+                    <div class="owl-carousel text-rotation">                                    
+                      <div class="item">
+                        <h4>Backend-developer</h4>
+                      </div>
+
+                      <div class="item">
+                        <h4>Web developer</h4>
+                      </div>
+                    </div>
+                      
+                    <h1>Islombek Orifov</h1>
+                    <p>{% if fun_facts.about_me %} {{ fun_facts.about_me }} {% endif %}Энди тарозини у томонига нма койсаям котим котарилмиди<br>
+                      (Xodjeek)
+                    </p>
+                        
+                    <div class="home-buttons">
+                      <a href="{{ fun_facts.cv.url }}" class="btn btn-primary" download="{{ fun_facts.cv.url }}">Download CV</a>
+                      <a href="tel:+998990001219" target="_self" class="btn btn-secondary">Call</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Home Page Top Part -->
+
+        <!-- Services -->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="p-50"></div>
+
+            <div class="block-title">
+              <h2>What I Do</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-6">
+            <div class="info-list-w-icon">
+              <div class="info-block-w-icon">
+                <div class="ci-icon">
+                  <i class="linecons linecons-news"></i>
+                </div>
+
+                <div class="ci-text">
+                  <h4>About me</h4>
+                  <p>I am 23 years old. I graduated from Tashkent University of 
+                    Information Technologies. Currently, I am engaged in web 
+                    programming. After entering the field of programming, I made 
+                    many acquaintances, and among them we formed our own team 
+                    with experts in their field.
+                  </p>
+                </div>
+              </div>
+
+              <div class="info-block-w-icon">
+                <div class="ci-icon">
+                  <i class="linecons linecons-shop"></i>
+                </div>
+
+                <div class="ci-text">
+                  <h4>Ecommerce</h4>
+                  <p>
+                    E-commerce is a modern solution for online sales. An online 
+                    store allows you to manage your business from anywhere in the 
+                    world where there is an Internet connection. If you need such 
+                    online stores, please contact us!
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-6">
+            <div class="info-list-w-icon">
+              <div class="info-block-w-icon">
+                <div class="ci-icon">
+                  <i class="linecons linecons-world"></i>
+                </div>
+
+                <div class="ci-text">
+                  <h4>Website development</h4>
+                  <p>Our team consists of programmers and marketers 
+                    who have a place in the IT sphere. We create for our 
+                    clients from visiting sites and landing pages to 
+                    online stores and high pressure sites.
+                  </p>
+                </div>
+              </div>
+
+              <div class="info-block-w-icon">
+                <div class="ci-icon">
+                  <i class="linecons linecons-megaphone"></i>
+                </div>
+
+                <div class="ci-text">
+                  <h4>Marketing</h4>
+                  <p>
+                    Marketing is one of the active forms of entrepreneurial 
+                    activity, which aims to ensure that the unlimited demand 
+                    of consumers in the market is met and that this maximizes 
+                    profit. Our marketers have many years of experience in large 
+                    companies. We believe they can help you promote your brand and 
+                    increase your income.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Services -->
+
+        {% if quotes %}
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <div class="p-20"></div>
+
+              <!-- Quotes -->
+              <div class="block-title">
+                <h2>Quotes</h2>
+              </div>
+
+              <div id="testimonials_1" class="testimonials owl-carousel" data-mobile-items="1" data-tablet-items="2" data-items="2">
+                {% for quote in quotes %}
+                <div class="testimonial-item">
+                  <!-- Testimonial Content -->
+                  <div class="testimonial-content">
+                    <!-- Picture -->
+                    <div class="testimonial-picture">
+                      <img src="{{ quote.image.url }}" alt="{{ quote.author }}"/>
+                    </div>              
+                    <!-- /Picture -->
+
+                    <!-- Testimonial Text -->
+                    <div class="testimonial-text">
+                      <p>{{ quote.body }}</p>
+                    </div>
+                    <!-- /Testimonial Text -->
+
+                    <!-- Testimonial author information -->
+                    <div class="testimonial-author-info">
+                      <h5 class="testimonial-author">{{ quote.author }}</h5>
+                      <p class="testimonial-firm">{{ quote.from_where }}</p>
+                    </div>
+                    <!-- /Testimonial author information -->
+
+                    <div class="testimonial-icon">
+                      <i class="fa fa-quote-left"></i>
+                    </div>
+
+                    <div class="testimonial-icon-big">
+                      <i class="fa fa-quote-right"></i>
+                    </div>
+                  </div>
+                  <!-- /Testimonial Content -->
+                </div>
+                {% endfor %}
+              </div>
+              <!-- /Quotes -->
+
+              <div class="p-40"></div>
+
+              {% if coding_languages %}
+                <!-- Clients Slider -->
+                <div class="block-title">
+                  <h2>Web development</h2>
+                </div>
+
+                <div id="clients_1" class="clients owl-carousel" data-mobile-items="1" data-tablet-items="3" data-items="6">
+                  {% for coding_language in coding_languages %}
+                    <div class="client-block">
+                      <div target="_blank">
+                        <img src="{{ coding_language.logo.url }}" alt="{{ coding_language.name }}">
+                      </div>
+                    </div>
+                  {% endfor %}
+                  <div class="client-block">
+                    <a target="_blank">
+                      <img src="{% static 'img/logos/pycharm.png' %}" alt="pycharm">
+                    </a>
+                  </div>
+                </div>
+                <!-- /Clients Slider -->
+              {% endif %}
+
+              <div class="p-40"></div>
+
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- Fun Facts -->
+        <div class="row">
+          <div class="col-xs-12 col-sm-12">
+            <div class="block-title">
+              <h2>Fun Facts</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-sm-3">
+            <div class="lm-info-block gray-default">
+              <i class="linecons linecons-bulb"></i>
+              <h4>Projects</h4>
+              <span class="lm-info-block-value">{{ fun_facts.projects }}</span>
+              <span class="lm-info-block-text"></span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3">
+            <div class="lm-info-block gray-default">
+              <i class="linecons linecons-heart"></i>
+              <h4>Happy Clients</h4>
+              <span class="lm-info-block-value">{{ fun_facts.clients }}</span>
+              <span class="lm-info-block-text"></span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3">
+            <div class="lm-info-block gray-default">
+              <i class="linecons linecons-clock"></i>
+              <h4>Working Hours</h4>
+              <span class="lm-info-block-value">{{ fun_facts.work_hour }}</span>
+              <span class="lm-info-block-text"></span>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-sm-3 ">
+            <div class="lm-info-block gray-default">
+              <i class="linecons linecons-pen"></i>
+              <h4>Posts</h4>
+              <span class="lm-info-block-value">{{ fun_facts.posts }}</span>
+              <span class="lm-info-block-text"></span>
+            </div>
+          </div>
+        </div>
+        <!-- /Fun Facts -->
+
+        <div class="p-40"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

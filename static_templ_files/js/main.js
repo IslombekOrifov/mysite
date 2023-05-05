@@ -1,368 +1,414 @@
-/**
-  * Header Connect
-  * retinaLogo
-  * ajaxContactForm
-  * Loadmore Item
-  * headerFixed
-  * mobileNav
-  * ajaxSubscribe
-  * alertBox
-  * loadmore
-  * Dark Light Mode
+/*
+* Template Name: Leven - Resume / CV / vCard Template
+* Author: lmpixels
+* Author URL: http://themeforest.net/user/lmpixels
+* Version: 1.5.0
 */
 
-; (function ($) {
-    "use strict";
+(function($) {
+"use strict";
+    var body = $('body');
 
-    var themesflatTheme = {
-
-        // Main init function
-        init: function () {
-            this.config();
-            this.events();
-        },
-
-        // Define vars for caching
-        config: function () {
-            this.config = {
-                $window: $(window),
-                $document: $(document),
-            };
-        },
-
-        // Events
-        events: function () {
-            var self = this;
-
-            // Run on document ready
-            self.config.$document.on('ready', function () {
-
-
-                // Retina Logos
-                self.retinaLogo();
-
-
+    function imageCarousel() {
+        $('.portfolio-page-carousel').each(function() {
+            $(this).imagesLoaded(function () {
+                $('.portfolio-page-carousel').owlCarousel({
+                    smartSpeed:1200,
+                    items: 1,
+                    loop: true,
+                    dots: true,
+                    nav: true,
+                    navText: false,
+                    autoHeight: true,
+                    margin: 10
+                });
             });
-
-            // Run on Window Load
-            self.config.$window.on('load', function () {
-
-            });
-        },
-
-    }; // end themesflatTheme
-
-    // Start things up
-    themesflatTheme.init();
-
-    var retinaLogos = function() {
-        var retina = window.devicePixelRatio > 1 ? true : false;
-          if(retina) {
-              $('#site-logo-inner').find('img').attr( {src:'assets/images/logo/logo@2x.png',width:'146',height:'65'} );
-
-              $('#logo-footer.style').find('img').attr( {src:'assets/images/logo/logo-footer@2x.png',width:'146',height:'65'} );
-              $('#logo-footer.style2').find('img').attr( {src:'assets/images/logo/logo-footer-home.png',width:'146',height:'65'} );
-          }   
-        };
-
-    var ajaxContactForm = function () {
-        $('#contactform,#commentform').each(function () {
-            $(this).validate({
-                submitHandler: function (form) {
-                    var $form = $(form),
-                        str = $form.serialize(),
-                        loading = $('<div />', { 'class': 'loading' });
-
-                    $.ajax({
-                        type: "POST",
-                        url: $form.attr('action'),
-                        data: str,
-                        beforeSend: function () {
-                            $form.find('.form-submit,comment-form').append(loading);
-                        },
-                        success: function (msg) {
-                            var result, cls;
-                            if (msg === 'Success') {
-                                result = 'Message Sent Successfully To Email Administrator. ( You can change the email management a very easy way to get the message of customers in the user manual )';
-                                cls = 'msg-success';
-                            } else {
-                                result = 'Error sending email.';
-                                cls = 'msg-error';
-                            }
-
-                            $form.prepend(
-                                $('<div />', {
-                                    'class': 'flat-alert ' + cls,
-                                    'text': result
-                                }).append(
-                                    $('<a class="close" href="#"><i class="fa fa-close"></i></a>')
-                                )
-                            );
-
-                            $form.find(':input').not('.submit').val('');
-                        },
-                        complete: function (xhr, status, error_thrown) {
-                            $form.find('.loading').remove();
-                        }
-                    });
-                }
-            });
-        }); // each contactform
-    };
-
-    // Header Connect
-
-    var loadmore = function () {
-        $(".fl-item").slice(0, 8).show();
-        $(".fl-blog.fl-item2").slice(0, 6).show();
-        $(".fl-collection.fl-item3").slice(0, 3).show();
-        $(".fl-item.fl-item4").slice(0, 15).show();
-        $(".fl-item.fl-item5").slice(0, 7).show();
-
-        $(".loadmore").on("click", function(e){
-          e.preventDefault();
-
-          $(".fl-item:hidden").slice(0, 4).slideDown();
-          $(".fl-item2:hidden").slice(0, 3).slideDown();
-          $(".fl-item3:hidden").slice(0, 3).slideDown();
-          $(".fl-item4:hidden").slice(0, 5).slideDown();
-          $(".fl-item5:hidden").slice(0, 13).slideDown();
-          if($(".fl-item:hidden").length == 0) {
-            $(".loadmore").hide();
-          }
-          if($(".fl-item2:hidden").length == 0) {
-            $("#loadmore").hide();
-          }
-          if($(".fl-item3:hidden").length == 0) {
-            $("#loadmore").hide();
-          }
-          if($(".fl-item4:hidden").length == 0) {
-            $("#loadmore").hide();
-          }
-          if($(".fl-item5:hidden").length == 0) {
-            $("#loadmore").hide();
-          }
         });
-    };
+    }
 
-       // Header Fixed
-       var headerFixed = function () {
-        if ($('body').hasClass('header-fixed')) {
-            var nav = $('#header_main');
+    // Ajax Pages loader
+   function ajaxLoader() {
+        // Check for hash value in URL
+        var ajaxLoadedContent = $('#page-ajax-loaded');
 
-            if (nav.length) {
-                var offsetTop = nav.offset().top,
-                    headerHeight = nav.height(),
-                    injectSpace = $('<div />', {
-                        height: headerHeight
-                    }).insertAfter(nav);
-                injectSpace.hide();
+        function showContent() {
+            ajaxLoadedContent.removeClass('fadeOutLeft closed');
+            ajaxLoadedContent.show();
+            $('body').addClass('ajax-page-visible');
+        }
 
-                $(window).on('load scroll', function () {
-                    if ($(window).scrollTop() > offsetTop) {
-                        nav.addClass('is-fixed');
-                        injectSpace.show();
-                    } else {
-                        nav.removeClass('is-fixed');
-                        injectSpace.hide();
-                    }
+        function hideContent() {
+            $('#page-ajax-loaded').addClass('fadeOutLeft closed');
+            $('body').removeClass('ajax-page-visible');
+            setTimeout(function(){
+                $('#page-ajax-loaded.closed').html('');
+                ajaxLoadedContent.hide();
+            }, 500);
+        }
 
-                    if ($(window).scrollTop() > 500) {
-                        nav.addClass('is-small');
-                    } else {
-                        nav.removeClass('is-small');
-                    }
-                })
+        var href = $('.ajax-page-load').each(function(){
+            href = $(this).attr('href');
+            if(location.hash == location.hash.split('/')[0] + '/' + href.substr(0,href.length-5)){
+                var toLoad =  $(this).attr('href');
+                showContent();
+                ajaxLoadedContent.load(toLoad);
+                return false;
             }
-        }
-    };
-
-    // Mobile Navigation
-    var mobileNav = function () {
-        var mobile = window.matchMedia("(max-width: 991px)");
-        var wrapMenu = $("#site-header-inner .wrap-box");
-        var navExtw = $(".nav-extend.active");
-        var navExt = $(".nav-extend.active").children();
-    
-        responsivemenu(mobile);
-    
-        mobile.addListener(responsivemenu);
-    
-        function responsivemenu(mobile) {
-          if (mobile.matches) {
-            $("#main-nav")
-              .attr("id", "main-nav-mobi")
-              .appendTo("#header_main")
-              .hide()
-              .children(".menu")
-              .append(navExt)
-              .find("li:has(ul)")
-              .children("ul")
-              .removeAttr("style")
-              .hide()
-              .before('<span class="arrow"></span>');
-          } else {
-            $("#main-nav-mobi")
-              .attr("id", "main-nav")
-              .removeAttr("style")
-              .prependTo(wrapMenu)
-              .find(".ext")
-              .appendTo(navExtw)
-              .parent()
-              .siblings("#main-nav")
-              .find(".sub-menu")
-              .removeAttr("style")
-              .prev()
-              .remove();
-    
-            $(".mobile-button").removeClass("active");
-            $(".mobile-button-style2").removeClass("active");
-            $(".sub-menu").css({ display: "block" });
-          }
-        }
-        $(document).on("click", ".mobile-button", function () {
-          $(this).toggleClass("active");
-          $("#main-nav-mobi").slideToggle();
         });
-        $(document).on("click", ".mobile-button-style2", function () {
-          $(this).toggleClass("active");
-          $("#main-nav-mobi").slideToggle();
-        });
-        $(document).on("click", "#main-nav-mobi .arrow", function () {
-          $(this).toggleClass("active").next().slideToggle();
-        });
-      };
-    var ajaxSubscribe = {
-        obj: {
-            subscribeEmail: $('#subscribe-email'),
-            subscribeButton: $('#subscribe-button'),
-            subscribeMsg: $('#subscribe-msg'),
-            subscribeContent: $("#subscribe-content"),
-            dataMailchimp: $('#subscribe-form').attr('data-mailchimp'),
-            success_message: '<div class="notification_ok">Thank you for joining our mailing list! Please check your email for a confirmation link.</div>',
-            failure_message: '<div class="notification_error">Error! <strong>There was a problem processing your submission.</strong></div>',
-            noticeError: '<div class="notification_error">{msg}</div>',
-            noticeInfo: '<div class="notification_error">{msg}</div>',
-            basicAction: 'mail/subscribe.php',
-            mailChimpAction: 'mail/subscribe-mailchimp.php'
-        },
 
-        eventLoad: function () {
-            var objUse = ajaxSubscribe.obj;
+        $(document)
+            .on("click","#ajax-page-close-button", function (e) { // Hide Ajax Loaded Page on Navigation cleck and Close button
+                e.preventDefault();
+                hideContent();
+                location.hash = location.hash.split('/')[0];
+            })
+            .on("click",".ajax-page-load", function () { // Show Ajax Loaded Page
+                var hash = location.hash.split('/')[0] + '/' + $(this).attr('href').substr(0,$(this).attr('href').length-5);
+                location.hash = hash;
+                showContent();
 
-            $(objUse.subscribeButton).on('click', function () {
-                if (window.ajaxCalling) return;
-                var isMailchimp = objUse.dataMailchimp === 'true';
-
-                if (isMailchimp) {
-                    ajaxSubscribe.ajaxCall(objUse.mailChimpAction);
-                } else {
-                    ajaxSubscribe.ajaxCall(objUse.basicAction);
-                }
+                return false;
             });
-        },
+    }
+    // /Ajax Pages loader
 
-        ajaxCall: function (action) {
-            window.ajaxCalling = true;
-            var objUse = ajaxSubscribe.obj;
-            var messageDiv = objUse.subscribeMsg.html('').hide();
-            $.ajax({
-                url: action,
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    subscribeEmail: objUse.subscribeEmail.val()
+    // Contact form validator
+    $(function () {
+        $('#contact_form').validator();
+    });
+    // /Contact form validator
+
+    // Portfolio subpage filters
+    function portfolio_init() {
+        $( '.portfolio-content' ).each( function() {
+            var portfolio_grid_container = $(this),
+                portfolio_grid_container_id = $(this).attr('id'),
+                portfolio_grid = $('#' + portfolio_grid_container_id + ' .portfolio-grid'),
+                portfolio_filter = $('#' + portfolio_grid_container_id + ' .portfolio-filters'),
+                portfolio_filter_item = $('#' + portfolio_grid_container_id + ' .portfolio-filters .filter');
+                
+            if (portfolio_grid) {
+
+                portfolio_grid.shuffle({
+                    speed: 450,
+                    itemSelector: 'figure'
+                });
+
+                $('.site-auto-menu').on("click", "a", function (e) {
+                    portfolio_grid.shuffle('update');
+                });
+
+                portfolio_filter.on("click", ".filter", function (e) {
+                    portfolio_grid.shuffle('update');
+                    e.preventDefault();
+                    portfolio_filter_item.parent().removeClass('active');
+                    $(this).parent().addClass('active');
+                    portfolio_grid.shuffle('shuffle', $(this).attr('data-group') );
+                });
+
+            }
+        })
+    }
+    // /Portfolio subpage filters
+
+    // Animate layout
+    function animateLayout() {
+        var windowWidth = $(window).width(),
+            animatedContainer = '',
+            animateType = $('#page_container').attr('data-animation')
+
+        if (windowWidth > 991) {
+            animatedContainer = $(".page-container");
+        } else {
+            animatedContainer = $(".site-main");
+        }
+
+        animatedContainer.addClass("animated " + animateType);
+        $('.page-scroll').addClass('add-prespective');
+        animatedContainer.addClass('transform3d');
+        setTimeout(function() {
+            $('.page-scroll').removeClass('add-prespective');
+            animatedContainer.removeClass('transform3d');
+        }, 1000);
+    }
+    // /Animate layout
+
+    function scrollTop() {
+        if ($(body).scrollTop() > 150) {
+            $('.lmpixels-scroll-to-top').removeClass('hidden-btn');
+        } else {
+            $('.lmpixels-scroll-to-top').addClass('hidden-btn');
+        }
+    }
+
+    function skillsStyles() {
+        var custom_styles = "";
+        $( '.skill-container' ).each( function() {
+            var value = $(this).attr('data-value');
+
+            if( value >= 101) {
+                value = '100';
+            }
+
+            if( typeof value != 'undefined' ) {
+                var id = $(this).attr('id'),
+                $custom_style = '#' + id + ' .skill-percentage { width: ' + value + '%; } ';
+                custom_styles += $custom_style;
+            }
+        });
+        $('head').append('<style data-styles="leven-theme-skills-css" type="text/css">' + custom_styles + '</style>');
+    }
+
+    //On Window load & Resize
+    $(window)
+        .on('load', function() { //Load
+            // Animation on Page Loading
+            $(".preloader").fadeOut( 800, "linear" );
+            animateLayout();
+        })
+        .on('hashchange', function(event) {
+            if(location.hash) {
+                ajaxLoader();
+            }
+        });
+
+
+    // On Document Load
+    $(document).ready(function () {
+        var movementStrength = 15;
+        var height = movementStrength / $(document).height();
+        var width = movementStrength / $(document).width();
+        $("body").on('mousemove', function(e){
+            var pageX = e.pageX - ($(document).width() / 2),
+                pageY = e.pageY - ($(document).height() / 2),
+                newvalueX = width * pageX * -1,
+                newvalueY = height * pageY * -1;
+            if ($('.page-container').hasClass('bg-move-effect')) {
+                var elements = $('.home-photo .hp-inner:not(.without-move), .lm-animated-bg');
+            } else {
+                var elements = $('.home-photo .hp-inner:not(.without-move)');
+            }
+            elements.addClass('transition');
+            elements.css({
+                "background-position": "calc( 50% + " + newvalueX + "px ) calc( 50% + " + newvalueY + "px )",
+            });
+
+            setTimeout(function() {
+                elements.removeClass('transition');
+            }, 300);
+        })
+        .scroll(function () {
+            scrollTop();
+        });
+
+        // Initialize Portfolio grid
+        var $portfolio_container = $(".portfolio-grid"),
+            $gallery_container = $("#portfolio-gallery-grid");
+
+        $gallery_container.imagesLoaded(function () {
+            $gallery_container.masonry();
+        });
+
+        $portfolio_container.imagesLoaded(function () {
+            portfolio_init(this);
+        });
+
+        imageCarousel();
+
+        // Blog grid init
+        var $container = $(".blog-masonry");
+        $container.imagesLoaded(function () {
+            $container.masonry({
+              itemSelector: '.item',
+              resize: false
+            });
+        });
+
+        // Mobile menu
+        $('.menu-toggle').on("click", function () {
+            $('.site-nav').addClass('animate');
+            $('.site-nav').toggleClass('mobile-menu-hide');
+        });
+
+        // Text rotation
+        $('.text-rotation').owlCarousel({
+            loop: true,
+            dots: false,
+            nav: false,
+            margin: 10,
+            items: 1,
+            autoplay: true,
+            autoplayHoverPause: false,
+            autoplayTimeout: 3800,
+            animateOut: 'fadeOut',
+            animateIn: 'fadeIn'
+        });
+
+        // Testimonials Slider
+        $(".testimonials.owl-carousel").owlCarousel({
+            nav: false, // Show next/prev buttons.
+            items: 3, // The number of items you want to see on the screen.
+            loop: false, // Infinity loop. Duplicate last and first items to get loop illusion.
+            navText: false,
+            margin: 25,
+            responsive : {
+                // breakpoint from 0 up
+                0 : {
+                    items: 1,
                 },
-                success: function (responseData, textStatus, jqXHR) {
-                    if (responseData.status) {
-                        objUse.subscribeContent.fadeOut(500, function () {
-                            messageDiv.html(objUse.success_message).fadeIn(500);
-                        });
-                    } else {
-                        switch (responseData.msg) {
-                            case "email-required":
-                                messageDiv.html(objUse.noticeError.replace('{msg}', 'Error! <strong>Email is required.</strong>'));
-                                break;
-                            case "email-err":
-                                messageDiv.html(objUse.noticeError.replace('{msg}', 'Error! <strong>Email invalid.</strong>'));
-                                break;
-                            case "duplicate":
-                                messageDiv.html(objUse.noticeError.replace('{msg}', 'Error! <strong>Email is duplicate.</strong>'));
-                                break;
-                            case "filewrite":
-                                messageDiv.html(objUse.noticeInfo.replace('{msg}', 'Error! <strong>Mail list file is open.</strong>'));
-                                break;
-                            case "undefined":
-                                messageDiv.html(objUse.noticeInfo.replace('{msg}', 'Error! <strong>undefined error.</strong>'));
-                                break;
-                            case "api-error":
-                                objUse.subscribeContent.fadeOut(500, function () {
-                                    messageDiv.html(objUse.failure_message);
-                                });
-                        }
-                        messageDiv.fadeIn(500);
+                // breakpoint from 480 up
+                480 : {
+                    items: 1,
+                },
+                // breakpoint from 768 up
+                768 : {
+                    items: 2,
+                },
+                1200 : {
+                    items: 2,
+                }
+            }
+        });
+
+        // Clients Slider
+        $(".clients.owl-carousel").imagesLoaded().owlCarousel({
+            nav: false, // Show next/prev buttons.
+            items: 2, // The number of items you want to see on the screen.
+            loop: false, // Infinity loop. Duplicate last and first items to get loop illusion.
+            navText: false,
+            margin: 10,
+            autoHeight: false,
+            responsive : {
+                // breakpoint from 0 up
+                0 : {
+                    items: 2,
+                },
+                // breakpoint from 768 up
+                768 : {
+                    items: 4,
+                },
+                1200 : {
+                    items: 6,
+                }
+            }
+        });
+
+        // Lightbox init
+        body.magnificPopup({
+            fixedContentPos: false,
+            delegate: 'a.lightbox',
+            type: 'image',
+            removalDelay: 300,
+
+            // Class that is added to popup wrapper and background
+            // make it unique to apply your CSS animations just to this exact popup
+            mainClass: 'mfp-fade',
+            image: {
+                // options for image content type
+                titleSrc: 'title',
+                gallery: {
+                    enabled: true
+                },
+            },
+
+            iframe: {
+                markup: '<div class="mfp-iframe-scaler">'+
+                        '<div class="mfp-close"></div>'+
+                        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
+                        '<div class="mfp-title mfp-bottom-iframe-title"></div>'+
+                      '</div>', // HTML markup of popup, `mfp-close` will be replaced by the close button
+
+                patterns: {
+                    youtube: {
+                      index: 'youtube.com/', // String that detects type of video (in this case YouTube). Simply via url.indexOf(index).
+
+                      id: null, // String that splits URL in a two parts, second part should be %id%
+                      // Or null - full URL will be returned
+                      // Or a function that should return %id%, for example:
+                      // id: function(url) { return 'parsed id'; }
+
+                      src: '%id%?autoplay=1' // URL that will be set as a source for iframe.
+                    },
+                    vimeo: {
+                      index: 'vimeo.com/',
+                      id: '/',
+                      src: '//player.vimeo.com/video/%id%?autoplay=1'
+                    },
+                    gmaps: {
+                      index: '//maps.google.',
+                      src: '%id%&output=embed'
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert('Connection error');
-                },
-                complete: function (data) {
-                    window.ajaxCalling = false;
+
+                srcAction: 'iframe_src', // Templating object key. First part defines CSS selector, second attribute. "iframe_src" means: find "iframe" and set attribute "src".
+            },
+
+            callbacks: {
+                markupParse: function(template, values, item) {
+                 values.title = item.el.attr('title');
+                }
+            },
+        });
+
+        $('.ajax-page-load-link').magnificPopup({
+            type: 'ajax',
+            removalDelay: 300,
+            mainClass: 'mfp-fade',
+            gallery: {
+                enabled: true
+            },
+        });
+
+        $('.portfolio-page-wrapper .portfolio-grid').each(function() {
+            $(this).magnificPopup({
+                delegate: 'a.gallery-lightbox',
+                type: 'image',
+                gallery: {
+                  enabled:true
                 }
             });
-        }
-    };
-
-    var alertBox = function () {
-        $(document).on('click', '.close', function (e) {
-            $(this).closest('.flat-alert').remove();
-            e.preventDefault();
-        })
-    };
-
-    // Dark Light Mode
-    $(".dark").on('click', function (e) {
-        e.preventDefault();
-        $(".body").addClass("is_dark")
-        $(".light").removeClass("is_active")
-        $(".dark").addClass("is_active")
-
-        $(".bt-footer").removeClass("home-style")
-
-        document.getElementById("logo_footer").src = "assets/images/logo/logo-footer.png";
-    });
-
-    $(".light").on('click', function (e) {
-        e.preventDefault();
-        $(".body").removeClass("is_dark")
-        $(".light").addClass("is_active")
-        $(".dark").removeClass("is_active")
-
-        $(".bt-footer").addClass("home-style")
-
-        document.getElementById("logo_footer").src = "assets/images/logo/logo-footer-home.png";
-    });
-
-    // var alertBox = function () {
-    //     $(document).on('click', '.close', function (e) {
-    //         $(this).closest('.flat-alert').remove();
-    //         e.preventDefault();
-    //     })
-    // };
-
-
-    // Dom Ready
-    $(function () {
-        $( window ).on('load resize',function() {
-            retinaLogos();
         });
-        headerFixed();
-        mobileNav();
-        ajaxSubscribe.eventLoad();
-        ajaxContactForm();
-        alertBox();
-        loadmore();
+
+        $('.form-control').val('');
+
+        $(".form-control").on("focusin", function(){
+            $(this).parent('.form-group').addClass('form-group-focus');
+        });
+
+        $(".form-control").on("focusout", function(){
+            if($(this).val().length === 0) {
+                $(this).parent('.form-group').removeClass('form-group-focus');
+            }
+        });
+
+        $('body').append('<div id="page-ajax-loaded" class="page-portfolio-loaded animated fadeInLeft" style="display: none"><div class="preloader-portfolio"><div class="preloader-animation"><div class="preloader-spinner"></div></div></div></div>');
+
+        ajaxLoader();
+
+        // Sidebar toggle
+        $('.sidebar-toggle').on("click", function () {
+            $('#blog-sidebar').toggleClass('open');
+            $(this).toggleClass('open');
+        });
+
+        $('.lmpixels-scroll-to-top').click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 400);
+            return false;
+        });
+        
+        //Google Maps
+        $("#map").googleMap({
+            zoom: 16 // Google Map ZOOM. You can change this value
+        });
+        $("#map").addMarker({
+            address: "S601 Townsend Street, San Francisco, California, USA", // Your Address. Change it
+        });
+
+        scrollTop();
+
+        skillsStyles();
     });
 
 })(jQuery);
-

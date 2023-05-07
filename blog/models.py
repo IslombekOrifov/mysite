@@ -20,6 +20,9 @@ class Category(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("blog:category", args=[self.slug,])
 
     
 class PublishedManager(models.Manager):

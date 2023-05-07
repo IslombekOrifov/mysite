@@ -42,6 +42,7 @@ urlpatterns = [
     path('api/', include(router.urls)),
     path('', include('main.urls', namespace='main')),
     path('blog/', include('blog.urls', namespace='blog')),
+    path('accounts/', include('accounts.urls', namespace='accounts')),
 ]
 
 if settings.DEBUG:

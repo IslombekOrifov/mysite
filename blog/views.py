@@ -4,11 +4,19 @@ from django.shortcuts import render, get_object_or_404, HttpResponse
 from django.http import Http404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Post
+from .models import Post, Category
 
 
-def post_list(request):
-    post_list = Post.published.all()
+def post_list(request, slug=None):
+    category = None
+    recently_posts = Post.published.all().select_related('category').order_by('-publish')[:3]
+
+    if slug:
+        post_list = Post.published.filter(category__slug=slug).select_related('category')
+        category = Category.objects.get(slug=slug)
+    else:
+        post_list = Post.published.all().select_related('category')
+    
     paginator = Paginator(post_list, 9)
     page_number = request.GET.get('page', 1)
     try:
@@ -17,7 +25,13 @@ def post_list(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    return render(request, 'blog/post/list.html', {'posts': posts})
+    
+    context = {
+        'posts': posts, 
+        'current_cat': category,
+        'recently_posts': recently_posts
+    }
+    return render(request, 'blog/post/list.html', {'posts': posts, 'current_cat': category})
 
 
 def post_detail(request, year, month, day, post):
@@ -29,4 +43,11 @@ def post_detail(request, year, month, day, post):
         publish__month=month,
         publish__day=day
     )
-    return render(request, 'blog/post/detail.html', {'post': post} )
+    recently_posts = Post.published.all().order_by('-publish')[:3]
+    category = Category.objects.get(id=post.category.id)
+    context = {
+        'post': post, 
+        'current_cat': category,
+        'recently_posts': recently_posts
+    }
+    return render(request, 'blog/post/detail.html', context)

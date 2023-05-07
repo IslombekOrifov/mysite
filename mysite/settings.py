@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'main.context_processors.get_socials',
+                'blog.context_processors.get_categories',
             ],
         },
     },
@@ -131,9 +132,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR, 'static_templ_files',
-]
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 

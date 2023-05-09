@@ -10,7 +10,7 @@ from .models import Post
 @receiver(post_save, sender=Post)
 def handle_new_post(sender, instance, **kwargs):
     message_obj = Message(
-    notification=Notification(title="title", body="text", image="url"),
+    notification=Notification(title=instance.title, body=instance.body[:30] + '...', image=instance.image.url),
     topic="Optional topic parameter: Whatever you want",
 )
 
